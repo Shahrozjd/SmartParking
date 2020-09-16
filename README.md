@@ -5,5 +5,6 @@
  #### Project is in under development<br><br>
  
  ##### Splash Screen
- <img src="blob:https://web.whatsapp.com/0e6c90b1-35de-41fa-8466-ac4f97241e02" alt="drawing" width="250" height="470"/>
-
+ <img src="https://user-images.githubusercontent.com/50264214/93339688-50c8f300-f845-11ea-8b9a-3d1a12b081c1.jpeg" alt="drawing" width="250" height="470"/>  
+ ##### WelomeScreen
+ <img src="https://user-images.githubusercontent.com/50264214/93339818-75bd6600-f845-11ea-824a-202277ec8c9d.jpeg" alt="drawing" width="250" height="470"/>
