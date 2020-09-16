@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.example.smartparking.R;
 
 public class renter_single_parking extends Fragment {
+
     public renter_single_parking() {
         // Required empty public constructor
     }
@@ -21,4 +22,5 @@ public class renter_single_parking extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_renter_single_parking, container, false);
     }
+
 }
