@@ -5,7 +5,7 @@
  #### Project is in under development<br><br>
  
  ##### Splash Screen
- <img src="https://user-images.githubusercontent.com/50264214/93339688-50c8f300-f845-11ea-8b9a-3d1a12b081c1.jpeg" alt="drawing" width="270" height="500"/><br>
+ <img src="https://user-images.githubusercontent.com/50264214/93339688-50c8f300-f845-11ea-8b9a-3d1a12b081c1.jpeg" alt="drawing" width="200" height="420"/><br>
  ##### WelomeScreen
  <img src="https://user-images.githubusercontent.com/50264214/93339818-75bd6600-f845-11ea-824a-202277ec8c9d.jpeg" alt="drawing" width="270" height="500"/><br>
  ##### Sign In
