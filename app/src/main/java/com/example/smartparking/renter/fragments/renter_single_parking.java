@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartparking.R;
@@ -38,6 +39,8 @@ public class renter_single_parking extends Fragment {
     private FirebaseFirestore db;
     ImageView imageView;
 
+    TextView renter_single_title, renter_single_address, renter_single_rate, renter_single_days, renter_single_start, renter_single_end;
+
     public renter_single_parking() {
         // Required empty public constructor
     }
@@ -53,9 +56,15 @@ public class renter_single_parking extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Toast.makeText(getContext(), ParkingID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), ParkingID, Toast.LENGTH_SHORT).show();
 
         imageView = getActivity().findViewById(R.id.singleimg);
+        renter_single_title=getActivity().findViewById(R.id.singleTitle);
+        renter_single_address=getActivity().findViewById(R.id.singleAddress);
+        renter_single_rate=getActivity().findViewById(R.id.singleRate);
+        renter_single_days=getActivity().findViewById(R.id.singleDays);
+        renter_single_start=getActivity().findViewById(R.id.single_starttime);
+        renter_single_end=getActivity().findViewById(R.id.single_endtime);
 
         final ProgressDialog loading = ProgressDialog.show(getContext(), "Fetching Profile", "Please wait ...");
         loading.setCancelable(false);
@@ -72,13 +81,21 @@ public class renter_single_parking extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         loading.dismiss();
-                        Toast.makeText(getContext(), document.getData().toString(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getContext(), document.getData().toString(), Toast.LENGTH_SHORT).show();
 
 
                         String data = document.getData().get("available").toString()+
                                 ","+ document.getData().get("id").toString();
 
                         GeneratQR(data);
+
+                        renter_single_title.setText(document.getData().get("title").toString());
+                        renter_single_address.setText(document.getData().get("address").toString());
+                        renter_single_rate.setText(document.getData().get("rate").toString());
+                        renter_single_days.setText(document.getData().get("activedays").toString());
+                        renter_single_start.setText(document.getData().get("starttime").toString());
+                        renter_single_end.setText(document.getData().get("endtime").toString());
+
 
                     } else {
                         loading.dismiss();
@@ -97,9 +114,8 @@ public class renter_single_parking extends Fragment {
     }
 
 
-    private String GeneratQR(String data)
+    private void GeneratQR(String data)
     {
-        String getQr = null;
         Bitmap bitmap;
         QRGEncoder qrgEncoder = new QRGEncoder(data, null, QRGContents.Type.TEXT, 1000);
         try {
@@ -110,7 +126,5 @@ public class renter_single_parking extends Fragment {
         } catch (WriterException e) {
             Log.d("TAG", e.toString());
         }
-
-        return getQr;
     }
 }

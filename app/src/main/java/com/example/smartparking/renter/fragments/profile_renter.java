@@ -32,10 +32,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.content.ContentValues.TAG;
 
 
 public class profile_renter extends Fragment {
+
+    public static final int PICK_IMAGE = 1;
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -47,6 +51,7 @@ public class profile_renter extends Fragment {
     TextView textView_email;
     TextView textView_logout;
     Button button;
+    CircleImageView circleImageView;
 
     public profile_renter() {
 
@@ -56,6 +61,13 @@ public class profile_renter extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_profile_renter, container, false);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == PICK_IMAGE) {
+            //TODO: action
+        }
     }
 
     @Override
@@ -69,6 +81,7 @@ public class profile_renter extends Fragment {
         textView_email=getActivity().findViewById(R.id.renter_email);
         textView_logout=getActivity().findViewById(R.id.renter_logout);
         button=getActivity().findViewById(R.id.renter_update);
+        circleImageView=getActivity().findViewById(R.id.profile_image);
 
         final ProgressDialog loading = ProgressDialog.show(getContext(), "Fetching Profile", "Please wait ...");
         loading.setCancelable(false);
@@ -92,6 +105,15 @@ public class profile_renter extends Fragment {
             }
         });
 
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
+        });
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();

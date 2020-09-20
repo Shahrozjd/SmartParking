@@ -114,7 +114,7 @@ public class home_renter extends Fragment {
 
                                 item.put("title", Title);
                                 item.put("address", address);
-                                item.put("rate", rate+" A$/hr");
+                                item.put("rate", rate+" $/hr");
                                 item.put("activedays", activedays);
                                 item.put("starttime", starttime);
                                 item.put("endtime", endtime);
