@@ -1,15 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/mainaccent"
     tools:context=".renter.fragments.renter_single_parking">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/singleimg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </ImageView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profile_background"
+        android:layout_weight="100"
+        android:orientation="vertical"
+        android:padding="15dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleTitle"
+            android:textSize="26sp"
+            android:text="setTitle"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleAddress"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="setaddress"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleRate"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="setRate"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/singledays"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="setdays"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/single_starttime"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="setStarttime"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/single_endtime"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="setendtime"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleLat"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="setLat"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleLon"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="setLon"
+            android:textColor="@android:color/black"
+            >
+        </TextView>
+
+
+    </LinearLayout>
+
+</LinearLayout>

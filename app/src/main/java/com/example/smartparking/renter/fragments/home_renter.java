@@ -108,6 +108,7 @@ public class home_renter extends Fragment {
                                 String Longitude = document.getData().get("Longitude").toString().trim();
                                 String email = document.getData().get("email").toString().trim();
                                 String id = document.getData().get("id").toString().trim();
+                                String available = document.getData().get("available").toString().trim();
 
                                 HashMap<String, String> item = new HashMap<>();
 
@@ -121,6 +122,7 @@ public class home_renter extends Fragment {
                                 item.put("Longitude", Longitude);
                                 item.put("email", email);
                                 item.put("id",id);
+                                item.put("available",available);
 
 
 
@@ -152,18 +154,17 @@ public class home_renter extends Fragment {
 
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
 
-                Toast.makeText(getContext(), item.get("title")+item.get("rate")+item.get("address")+item.get("id"), Toast.LENGTH_SHORT).show();
 
 
-//                Fragment fragment;
-//                fragment = new AddPost();
-//
-//                Bundle args = new Bundle();
-//                args.putString("id",item.get("id"));
-//
-//                fragment.setArguments(args);
-//
-//                loadFragment(fragment);
+                Fragment fragment;
+                fragment = new renter_single_parking();
+
+                Bundle args = new Bundle();
+                args.putString("id",item.get("id"));
+
+                fragment.setArguments(args);
+
+                loadFragment(fragment);
 
             }
         });

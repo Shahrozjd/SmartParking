@@ -207,6 +207,7 @@ public class AddPost extends Fragment implements CompoundButton.OnCheckedChangeL
                 userdata.put("endtime", endTime);
                 userdata.put("Latitude", Lat);
                 userdata.put("Longitude", Lon);
+                userdata.put("available","true");
 
                 db.collection("parking").document(id)
                         .set(userdata)

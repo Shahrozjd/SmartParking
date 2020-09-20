@@ -43,6 +43,7 @@
                 android:id="@+id/list_renter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="?android:attr/actionBarSize"
                 ></ListView>
 
 
