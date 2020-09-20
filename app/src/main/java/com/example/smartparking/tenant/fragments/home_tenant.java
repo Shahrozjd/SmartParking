@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,7 +43,7 @@ import static android.content.ContentValues.TAG;
 
 public class home_tenant extends Fragment {
 
-    ImageView getNearbyLocation;
+    Button getNearbyLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -126,6 +129,9 @@ public class home_tenant extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         String mail=currentUser.getEmail().toString();
+
+        final ArrayList<HashMap<String, String>> list = new ArrayList<>();
+
         db.collection("parking")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -134,12 +140,9 @@ public class home_tenant extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-//                                Toast.makeText(getContext(), document.getData().toString(), Toast.LENGTH_SHORT).show();
 
                                 double renterLat = Double.parseDouble(document.getData().get("Latitude").toString());
                                 double renterLon = Double.parseDouble(document.getData().get("Longitude").toString());
-
-
                                 if ((tenantLat == renterLat) && (tenantLon == renterLon)) {
 
                                 }
@@ -152,8 +155,13 @@ public class home_tenant extends Fragment {
                                     dist = Math.acos(dist);
                                     dist = Math.toDegrees(dist);
                                     dist = dist * 60 * 1.1515* 1.609344;
+                                    double parkingDistance = Double.parseDouble(new DecimalFormat("##.##").format(dist));
 
-                                    Toast.makeText(getContext(), String.valueOf(new DecimalFormat("##.##").format(dist)), Toast.LENGTH_SHORT).show();
+                                    HashMap<String, String> item = new HashMap<>();
+                                    item.put("parkingDistance", String.valueOf(parkingDistance));
+                                    item.put("id",document.getData().get("id").toString());
+
+                                    list.add(item);
 
                                 }
 
@@ -161,6 +169,18 @@ public class home_tenant extends Fragment {
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
+
+                        int size = list.size();
+                        for(int i=0;i<size;i++)
+                        {
+                            double distanceThreshold = 10.00;
+                            if (Double.parseDouble(list.get(i).get("parkingDistance")) <= distanceThreshold) {
+
+                                Toast.makeText(getContext(), list.get(i).get("parkingDistance"), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+
                     }
                 });
     }
