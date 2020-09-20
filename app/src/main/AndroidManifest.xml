@@ -9,6 +9,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -34,16 +35,33 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".renter.RenterMain" />
-        <activity android:name=".tenant.TenantMain" />
-        <activity android:name=".renter.SignupActivity_renter" />
-        <activity android:name=".renter.LoginActivity_renter" />
-        <activity android:name=".tenant.SignupActivity_tenant" />
-        <activity android:name=".tenant.LoginActivity_tenant" />
-        <activity android:name=".WelcomeScreen" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".renter.RenterMain"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tenant.TenantMain"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".renter.SignupActivity_renter"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".renter.LoginActivity_renter"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tenant.SignupActivity_tenant"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tenant.LoginActivity_tenant"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WelcomeScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

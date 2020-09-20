@@ -42,7 +42,7 @@ public class renter_single_parking extends Fragment {
     TextView renter_single_title, renter_single_address, renter_single_rate, renter_single_days, renter_single_start, renter_single_end;
 
     public renter_single_parking() {
-        // Required empty public constructor
+
     }
 
     @Override
