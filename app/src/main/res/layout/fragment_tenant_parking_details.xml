@@ -10,24 +10,36 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="50"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:orientation="vertical"
         android:padding="10dp">
 
-        <com.google.android.gms.maps.MapView
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tap on map to see location"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            >
+        </TextView>
+        <fragment
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/tenant_map"
-            android:layout_margin="5dp"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
-        </com.google.android.gms.maps.MapView>
+            tools:context=".MapLocationActivity" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="100"
+        android:layout_weight="0.1"
         android:background="@drawable/profile_background"
         android:orientation="vertical"
         android:padding="15dp">

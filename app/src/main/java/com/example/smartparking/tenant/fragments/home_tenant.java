@@ -250,7 +250,7 @@ public class home_tenant extends Fragment {
                         int size = list.size();
                         for(int i=0;i<size;i++)
                         {
-                            double distanceThreshold = 5.00;
+                            double distanceThreshold = 10.00;
                             if (Double.parseDouble(list.get(i).get("parkingDistance")) <= distanceThreshold) {
 
                                 finallist.add(list.get(i));

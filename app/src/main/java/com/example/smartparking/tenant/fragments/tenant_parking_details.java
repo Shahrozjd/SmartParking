@@ -15,6 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartparking.R;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,12 +31,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import static android.content.ContentValues.TAG;
 
 
-public class tenant_parking_details extends Fragment {
+public class tenant_parking_details extends Fragment implements OnMapReadyCallback {
 
 
+    GoogleMap gm;
     TextView title, address, rate, activedays, starttime, endtime,txtdistance;
     String id;
     String distance;
+    double parklat;
+    double parklon;
     private FirebaseFirestore db;
 
     public tenant_parking_details() {
@@ -47,6 +57,8 @@ public class tenant_parking_details extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
 
         title = getActivity().findViewById(R.id.detailTitle);
         address = getActivity().findViewById(R.id.detailAddress);
@@ -77,6 +89,10 @@ public class tenant_parking_details extends Fragment {
                         starttime.setText(document.getData().get("starttime").toString().trim());
                         endtime.setText(document.getData().get("endtime").toString().trim());
                         txtdistance.setText(distance);
+
+                        parklat = Double.parseDouble(document.getData().get("Latitude").toString().trim());
+                        parklon = Double.parseDouble(document.getData().get("Longitude").toString().trim());
+                        Log.d("TAGP",parklat+" "+parklon);
                         loading.dismiss();
 
                     } else {
@@ -89,6 +105,37 @@ public class tenant_parking_details extends Fragment {
                     loading.dismiss();
                     Log.d(TAG, "get failed with ", task.getException());
                 }
+
+
+            }
+        }
+        );
+        SupportMapFragment mapFragment = (SupportMapFragment)getChildFragmentManager()
+                .findFragmentById(R.id.tenant_map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        gm = googleMap;
+
+
+        gm.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                LatLng parkinglatlon = new LatLng(parklat,parklon);
+
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(parkinglatlon);
+                markerOptions.title("Parking Location");
+                gm.clear();
+                gm.animateCamera(CameraUpdateFactory.newLatLngZoom(parkinglatlon,18));
+                gm.addMarker(markerOptions);
+
             }
         });
 
