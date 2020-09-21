@@ -45,30 +45,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
+            android:layout_margin="15dp"
+            android:orientation="horizontal"
             android:gravity="center"
             >
 
-            <Button
-                android:id="@+id/btngetNearby"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:background="@drawable/round_button"
-                android:gravity="center"
-                android:src="@drawable/marker"
-                 />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Search Nearby"
-                android:textSize="18dp"
-                android:textAlignment="center"
-                android:textColor="@color/mainaccent"
+                android:layout_weight="1"
                 >
-            </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Nearby Parkings"
+                    android:textSize="24dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/black"
+                    >
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical"
+                >
+
+                <Button
+                    android:id="@+id/btngetNearby"
+                    android:layout_width="80dp"
+                    android:layout_margin="5dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/round_button"
+                    android:src="@drawable/marker"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Refresh"
+                    android:textSize="16dp"
+                    android:layout_marginEnd="15dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/mainaccent"
+                    >
+                </TextView>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
         <LinearLayout
@@ -81,7 +113,10 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/tenant_home_list"
+                android:layout_marginBottom="?android:attr/actionBarSize"
                 >
+
 
             </ListView>
 
