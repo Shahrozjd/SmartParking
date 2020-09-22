@@ -128,7 +128,7 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
             public void onClick(View view) {
 
                 IntentIntegrator integrator = IntentIntegrator.forSupportFragment(tenant_parking_details.this);
-                integrator.setPrompt("Scan a barcode");
+                integrator.setPrompt("Scan a QR");
                 integrator.setCameraId(0);  // Use a specific camera of the device
                 integrator.setOrientationLocked(true);
                 integrator.setBeepEnabled(true);
