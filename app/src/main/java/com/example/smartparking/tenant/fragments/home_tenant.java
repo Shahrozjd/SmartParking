@@ -1,6 +1,7 @@
 package com.example.smartparking.tenant.fragments;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,11 +17,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.smartparking.R;
+import com.example.smartparking.renter.fragments.renter_single_parking;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +37,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.v1.TargetOrBuilder;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -47,10 +54,11 @@ public class home_tenant extends Fragment {
     FusedLocationProviderClient fusedLocationProviderClient;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-
+    public ListAdapter adapter = null;
+    public ListView listView;
     double tenantLat;
     double tenantLon;
-
+    ProgressDialog loading;
 
     public home_tenant() {
 
@@ -66,15 +74,31 @@ public class home_tenant extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getNearbyLocation = getActivity().findViewById(R.id.btngetNearby);
+        listView = getActivity().findViewById(R.id.tenant_home_list);
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        if (ActivityCompat.checkSelfPermission(getContext()
+                , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            //when permission granted
+            loading = ProgressDialog.show(getContext(), "Fetching Profile", "Please wait ...");
+            loading.setCancelable(false);
+            getlocation();
+        } else {
+            //when permission denied
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+
+
+        }
 
         //get tenant current location
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         getNearbyLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ActivityCompat.checkSelfPermission(getContext()
                         , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     //when permission granted
+                    loading = ProgressDialog.show(getContext(), "Fetching Profile", "Please wait ...");
+                    loading.setCancelable(false);
                     getlocation();
                 } else {
                     //when permission denied
@@ -85,6 +109,40 @@ public class home_tenant extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+
+                HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
+
+                Toast.makeText(getContext(), item.get("id")+item.get("distance"), Toast.LENGTH_SHORT).show();
+
+                Fragment fragment;
+                fragment = new tenant_parking_details();
+
+                Bundle args = new Bundle();
+                args.putString("id",item.get("id"));
+                args.putString("distance",item.get("distance"));
+
+                fragment.setArguments(args);
+
+                loadFragment(fragment);
+
+            }
+        });
+
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_tenant, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
     private void getlocation() {
@@ -158,9 +216,27 @@ public class home_tenant extends Fragment {
                                     double parkingDistance = Double.parseDouble(new DecimalFormat("##.##").format(dist));
 
                                     HashMap<String, String> item = new HashMap<>();
+                                    String availability = "";
+                                    String pkdistance = String.valueOf(parkingDistance)+"KM";
+                                    String rate = document.getData().get("rate").toString().trim()+"A$";
                                     item.put("parkingDistance", String.valueOf(parkingDistance));
                                     item.put("id",document.getData().get("id").toString());
+                                    item.put("title",document.getData().get("title").toString());
+                                    item.put("rate",rate);
+                                    item.put("address",document.getData().get("address").toString());
+                                    item.put("distance",pkdistance);
 
+                                    if(document.getData().get("available").toString().trim().equals("true"))
+                                    {
+                                        availability = "Available";
+                                    }
+                                    else
+                                    {
+                                        availability = "Occupied";
+                                    }
+
+
+                                    item.put("available",availability);
                                     list.add(item);
 
                                 }
@@ -170,16 +246,27 @@ public class home_tenant extends Fragment {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
 
+                        final ArrayList<HashMap<String, String>> finallist = new ArrayList<>();
                         int size = list.size();
                         for(int i=0;i<size;i++)
                         {
                             double distanceThreshold = 10.00;
                             if (Double.parseDouble(list.get(i).get("parkingDistance")) <= distanceThreshold) {
 
-                                Toast.makeText(getContext(), list.get(i).get("parkingDistance"), Toast.LENGTH_SHORT).show();
+                                finallist.add(list.get(i));
                             }
                         }
 
+                        Log.d("TAG",finallist.toString());
+
+                        adapter = new SimpleAdapter(getContext(),finallist,R.layout.tenant_parking_crads,
+                                new String[]{"title","rate","address","id","available","distance"},
+                                new int[]{R.id.tenant_pk_title,R.id.tenant_pk_rate
+                                        ,R.id.tenant_address,R.id.tenant_pk_id,R.id.tenant_pk_available,R.id.tenant_pk_distance});
+
+                        listView.setAdapter(adapter);
+
+                        loading.dismiss();
 
                     }
                 });

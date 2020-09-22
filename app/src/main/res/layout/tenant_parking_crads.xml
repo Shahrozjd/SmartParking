@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="10dp"
+        android:orientation="vertical"
+        android:id="@+id/rentercard"
+        app:cardElevation="5dp"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:outlineAmbientShadowColor="#000000"
+        android:elevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:id="@+id/tenant_pk_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:layout_weight="0.5"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp" />
+                <TextView
+                    android:id="@+id/tenant_pk_available"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="check"
+                    android:layout_weight="0.5"
+                    android:textAlignment="textEnd"
+                    android:textColor="@android:color/black"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/tenant_pk_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/tenant_pk_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:text="Rate"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tenant_pk_distance"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Distance"
+                android:drawableStart="@drawable/ic_baseline_trending_up_24"
+                android:drawablePadding="5dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+
+
+            <TextView
+                android:id="@+id/tenant_pk_id"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Address"
+                android:visibility="invisible"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
