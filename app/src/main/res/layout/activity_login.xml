@@ -63,6 +63,7 @@
                     android:background="@drawable/circular_background"
                     android:hint="Enter your email"
                     android:inputType="textEmailAddress"
+                    android:text="shahroz@gmail.com"
                     android:padding="15dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp">
@@ -77,6 +78,7 @@
                     android:background="@drawable/circular_background"
                     android:hint="Enter your password"
                     android:inputType="textPassword"
+                    android:text="123456"
                     android:padding="15dp"
                     android:textColor="@android:color/black"
                     android:textSize="18sp">

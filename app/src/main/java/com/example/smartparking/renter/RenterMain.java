@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.smartparking.R;
+import com.example.smartparking.renter.fragments.chatFragment_renter;
 import com.example.smartparking.renter.fragments.home_renter;
 import com.example.smartparking.renter.fragments.other_renter;
 import com.example.smartparking.renter.fragments.profile_renter;
@@ -44,7 +45,7 @@ public class RenterMain extends AppCompatActivity {
                                 fragment = new profile_renter();
                                 break;
                             case R.id.nav_other_renter:
-                                fragment = new other_renter();
+                                fragment = new chatFragment_renter();
                                 break;
                         }
                         return loadFragment(fragment);
