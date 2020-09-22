@@ -1,6 +1,7 @@
 package com.example.smartparking.tenant.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import static android.content.ContentValues.TAG;
 
@@ -34,6 +38,7 @@ import static android.content.ContentValues.TAG;
 public class tenant_parking_details extends Fragment implements OnMapReadyCallback {
 
 
+    Button scanqr;
     GoogleMap gm;
     TextView title, address, rate, activedays, starttime, endtime,txtdistance;
     String id;
@@ -59,6 +64,7 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
         super.onActivityCreated(savedInstanceState);
 
 
+        scanqr = getActivity().findViewById(R.id.tenant_scanqr);
 
         title = getActivity().findViewById(R.id.detailTitle);
         address = getActivity().findViewById(R.id.detailAddress);
@@ -115,6 +121,36 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
+
+        //SCANNING QR
+        scanqr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                IntentIntegrator integrator = IntentIntegrator.forSupportFragment(tenant_parking_details.this);
+                integrator.setPrompt("Scan a barcode");
+                integrator.setCameraId(0);  // Use a specific camera of the device
+                integrator.setOrientationLocked(true);
+                integrator.setBeepEnabled(true);
+                integrator.setCaptureActivity(CaptureActivityPortrait.class);
+                integrator.initiateScan();
+
+            }
+        });
+
+
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_tenant, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
 
@@ -139,5 +175,21 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+
+                Toast.makeText(getContext(), "Scanned : " + result.getContents(), Toast.LENGTH_LONG).show();
+
+
+
+            }
+        }
     }
 }

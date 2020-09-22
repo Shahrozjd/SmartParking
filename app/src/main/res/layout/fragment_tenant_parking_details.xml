@@ -34,6 +34,43 @@
             android:layout_height="match_parent"
             tools:context=".MapLocationActivity" />
 
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="scan"
+            android:textColor="@color/mainaccent"
+            android:id="@+id/tenant_scanqr"
+            android:padding="5dp"
+            android:drawableStart="@drawable/ic_baseline_gradient_24"
+            android:drawablePadding="5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_design_white"
+            >
+        </Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chat"
+            android:textColor="@color/mainaccent"
+            android:padding="5dp"
+            android:drawableStart="@drawable/ic_baseline_message_24"
+            android:drawablePadding="5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_design_white"
+            >
+        </Button>
+
     </LinearLayout>
 
     <LinearLayout

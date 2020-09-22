@@ -77,18 +77,18 @@ public class home_tenant extends Fragment {
         listView = getActivity().findViewById(R.id.tenant_home_list);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        if (ActivityCompat.checkSelfPermission(getContext()
-                , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //when permission granted
-            loading = ProgressDialog.show(getContext(), "Fetching Profile", "Please wait ...");
-            loading.setCancelable(false);
-            getlocation();
-        } else {
-            //when permission denied
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-
-
-        }
+//        if (ActivityCompat.checkSelfPermission(getContext()
+//                , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            //when permission granted
+//            loading = ProgressDialog.show(getContext(), "Fetching Profile", "Please wait ...");
+//            loading.setCancelable(false);
+//            getlocation();
+//        } else {
+//            //when permission denied
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+//
+//
+//        }
 
         //get tenant current location
         getNearbyLocation.setOnClickListener(new View.OnClickListener() {
