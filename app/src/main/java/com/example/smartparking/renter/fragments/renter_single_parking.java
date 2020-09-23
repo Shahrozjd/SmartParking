@@ -117,7 +117,7 @@ public class renter_single_parking extends Fragment {
     private void GeneratQR(String data)
     {
         Bitmap bitmap;
-        QRGEncoder qrgEncoder = new QRGEncoder(data, null, QRGContents.Type.TEXT, 1000);
+        QRGEncoder qrgEncoder = new QRGEncoder("s#p,"+data, null, QRGContents.Type.TEXT, 1000);
         try {
             // Getting QR-Code as Bitmap
             bitmap = qrgEncoder.encodeAsBitmap();

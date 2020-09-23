@@ -185,9 +185,31 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
                 Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
             } else {
 
-                Toast.makeText(getContext(), "Scanned : " + result.getContents(), Toast.LENGTH_LONG).show();
+                if(result.getContents().trim().length()>3)
+                {
+                    String str = result.getContents().trim().substring(0,3);
+                    if(str.equals("s#p"))
+                    {
+
+                        Fragment fragment;
+                        fragment = new startparking();
+                        Bundle args = new Bundle();
+                        args.putString("qrdata",result.getContents().trim());
+                        fragment.setArguments(args);
+                        loadFragment(fragment);
 
 
+
+                    }
+                    else
+                    {
+                        Toast.makeText(getContext(), "Please use certified QR", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Please use certified QR", Toast.LENGTH_LONG).show();
+                }
 
             }
         }
