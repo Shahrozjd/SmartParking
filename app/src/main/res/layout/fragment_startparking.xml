@@ -1,14 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tenant.fragments.startparking">
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/mainaccent"
+    tools:context=".tenant.fragments.home_tenant">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingStart="20dp"
+            android:text="Parking"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/location_access">
+
+        </ImageView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/profile_background"
+        android:layout_weight="0.8"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Parking Status"
+                android:textSize="30dp"
+                android:textColor="@android:color/black"
+                android:padding="15dp"
+                >
+            </TextView>
+            <TextView
+                android:id="@+id/parkingstatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="getParkingStatus"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"
+                android:paddingStart="15dp"
+                >
+            </TextView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/parkingresult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="getParkingresult"
+                android:visibility="invisible"
+                android:textAlignment="center"
+                android:textSize="24dp"
+                android:textColor="@android:color/black"
+                android:paddingStart="15dp"
+                >
+            </TextView>
+            <ImageButton
+                android:id="@+id/btnStop"
+                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/shape_oval"
+                android:padding="25dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/pluto_stop">
+
+            </ImageButton>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="STOP!"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textColor="@color/mainaccent"
+                android:paddingStart="15dp"
+                >
+            </TextView>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
