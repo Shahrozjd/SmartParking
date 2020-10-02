@@ -81,11 +81,10 @@ public class startparking extends Fragment {
                 parkingresult.setVisibility(View.VISIBLE);
 
                 //Calculate hours
-
+                Date now = Calendar.getInstance().getTime();
                 SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm:ss aa");
-                Date now = new Date();
                 String strDate = sdfDate.format(now);
-                Toast.makeText(getContext(), strDate.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), strDate, Toast.LENGTH_SHORT).show();
 
                 checktrue();
 
