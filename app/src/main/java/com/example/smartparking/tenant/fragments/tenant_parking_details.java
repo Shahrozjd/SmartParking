@@ -38,10 +38,10 @@ import static android.content.ContentValues.TAG;
 public class tenant_parking_details extends Fragment implements OnMapReadyCallback {
 
 
-    Button scanqr;
+    Button scanqr, chat;
     GoogleMap gm;
     TextView title, address, rate, activedays, starttime, endtime,txtdistance;
-    String id;
+    String id, renterid;
     String distance;
     double parklat;
     double parklon;
@@ -65,7 +65,7 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
 
 
         scanqr = getActivity().findViewById(R.id.tenant_scanqr);
-
+        chat = getActivity().findViewById(R.id.tenant_chat);
         title = getActivity().findViewById(R.id.detailTitle);
         address = getActivity().findViewById(R.id.detailAddress);
         rate = getActivity().findViewById(R.id.detailRate);
@@ -94,6 +94,7 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
                         activedays.setText(document.getData().get("activedays").toString().trim());
                         starttime.setText(document.getData().get("starttime").toString().trim());
                         endtime.setText(document.getData().get("endtime").toString().trim());
+                        renterid=document.getData().get("email").toString().trim();
                         txtdistance.setText(distance);
 
                         parklat = Double.parseDouble(document.getData().get("Latitude").toString().trim());
@@ -138,6 +139,20 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
             }
         });
 
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment;
+                fragment = new chatFragment_tenant();
+
+                Bundle args = new Bundle();
+                args.putString("renterid", renterid);
+
+                fragment.setArguments(args);
+
+                loadFragment(fragment);
+            }
+        });
 
     }
 

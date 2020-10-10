@@ -45,7 +45,7 @@ public class RenterMain extends AppCompatActivity {
                                 fragment = new profile_renter();
                                 break;
                             case R.id.nav_other_renter:
-                                fragment = new chatFragment_renter();
+                                fragment = new other_renter();
                                 break;
                         }
                         return loadFragment(fragment);
