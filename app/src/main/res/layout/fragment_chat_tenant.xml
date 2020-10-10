@@ -5,7 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".tenant.fragments.other_tenant">
 
+    <ListView
+        android:id="@+id/chats"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/send_layout"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp" />
+
     <LinearLayout
+        android:id="@+id/send_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

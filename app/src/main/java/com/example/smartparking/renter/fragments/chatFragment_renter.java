@@ -11,25 +11,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.smartparking.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class chatFragment_renter extends Fragment {
 
-    String tenantid;
+    String tenantid, mail;
     Button button;
     EditText editText;
+    public ListAdapter adapter = null;
     private FirebaseAuth mauth;
     private FirebaseFirestore db;
+    ListView listView;
 
     public chatFragment_renter() {
         // Required empty public constructor
@@ -48,17 +58,21 @@ public class chatFragment_renter extends Fragment {
         button = getActivity().findViewById(R.id.sender_renter);
         editText = getActivity().findViewById(R.id.senderText_renter);
         mauth = FirebaseAuth.getInstance();
+        FirebaseUser renter = mauth.getCurrentUser();
+        mail=renter.getEmail().toString();
+        db=FirebaseFirestore.getInstance();
+        listView=getActivity().findViewById(R.id.renter_chats);
+        func();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msg = editText.getText().toString().trim();
-                FirebaseUser renter = mauth.getCurrentUser();
-                String mail=renter.getEmail().toString();
+
                 Map<String, Object> userdata = new HashMap<>();
                 userdata.put("sender", mail);
                 userdata.put("msg", msg);
                 userdata.put("time",System.currentTimeMillis());
-                db=FirebaseFirestore.getInstance();
+
                 String id = db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages").document().getId();
                 db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages").document(id)
                     .set(userdata).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -75,5 +89,32 @@ public class chatFragment_renter extends Fragment {
                         });
             }
         });
+    }
+    public void func(){
+        final ArrayList<HashMap<String, String>> list = new ArrayList<>();
+        db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HashMap<String, String> item = new HashMap<>();
+                                String sender, msg;
+                                sender=document.get("sender").toString();
+                                msg=document.get("msg").toString();
+                                item.put("sender",sender);
+                                item.put("msg",msg);
+                                list.add(item);
+                            }
+                        } else {
+                        }
+                        adapter = new SimpleAdapter(getContext(),list,R.layout.messages,
+                                new String[]{"msg","sender"},
+                                new int[]{R.id.message_text,R.id.message_sender});
+                        listView.setAdapter(adapter);
+                    }
+
+                });
     }
 }

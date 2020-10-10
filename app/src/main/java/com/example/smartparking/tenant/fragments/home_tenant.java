@@ -226,26 +226,20 @@ public class home_tenant extends Fragment {
                                     item.put("address",document.getData().get("address").toString());
                                     item.put("distance",pkdistance);
 
-                                    if(document.getData().get("available").toString().trim().equals("true"))
-                                    {
+                                    if(document.getData().get("available").toString().trim().equals("true")){
                                         availability = "Available";
                                     }
-                                    else
-                                    {
+                                    else{
                                         availability = "Occupied";
                                     }
-
-
                                     item.put("available",availability);
                                     list.add(item);
 
                                 }
-
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-
                         final ArrayList<HashMap<String, String>> finallist = new ArrayList<>();
                         int size = list.size();
                         for(int i=0;i<size;i++)
@@ -256,18 +250,12 @@ public class home_tenant extends Fragment {
                                 finallist.add(list.get(i));
                             }
                         }
-
-                        Log.d("TAG",finallist.toString());
-
                         adapter = new SimpleAdapter(getContext(),finallist,R.layout.tenant_parking_crads,
                                 new String[]{"title","rate","address","id","available","distance"},
                                 new int[]{R.id.tenant_pk_title,R.id.tenant_pk_rate
                                         ,R.id.tenant_address,R.id.tenant_pk_id,R.id.tenant_pk_available,R.id.tenant_pk_distance});
-
                         listView.setAdapter(adapter);
-
                         loading.dismiss();
-
                     }
                 });
     }

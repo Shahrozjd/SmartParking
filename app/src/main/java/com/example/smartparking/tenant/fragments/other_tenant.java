@@ -136,7 +136,7 @@ public class other_tenant extends Fragment {
 
 
 
-                       Log.d("TAG",list.toString());
+//
 
                        adapter = new SimpleAdapter(getContext(),list,R.layout.userlist_card,
                                new String[]{"name"},

@@ -52,14 +52,12 @@ public class other_renter extends Fragment {
         listView = getActivity().findViewById(R.id.tenants_list);
         db = FirebaseFirestore.getInstance();
         mauth = FirebaseAuth.getInstance();
-        getrenter();
+        gettenant();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
 
                 HashMap<String, String> item = (HashMap<String, String>) parent.getItemAtPosition(position);
-
-                Toast.makeText(getContext(), item.get("tenants"), Toast.LENGTH_SHORT).show();
 
                 Fragment fragment;
                 fragment = new chatFragment_renter();
@@ -88,7 +86,7 @@ public class other_renter extends Fragment {
         return false;
     }
 
-    private void getrenter(){
+    private void gettenant(){
         final ArrayList<HashMap<String, String>> list = new ArrayList<>();
 
         db.collection("tenant")
@@ -107,10 +105,6 @@ public class other_renter extends Fragment {
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-
-
-
-                        Log.d("TAG",list.toString());
 
                         adapter = new SimpleAdapter(getContext(),list,R.layout.userlist_card,
                                 new String[]{"name"},
