@@ -1,11 +1,6 @@
 package com.example.smartparking.renter.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +10,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.smartparking.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,9 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class chatFragment_renter extends Fragment {
+public class chatFragment_admin extends Fragment {
 
-    String tenantid, mail;
+    String  mail;
     Button button;
     EditText editText;
     public ListAdapter adapter = null;
@@ -41,27 +40,26 @@ public class chatFragment_renter extends Fragment {
     private FirebaseFirestore db;
     ListView listView;
 
-    public chatFragment_renter() {
+    public chatFragment_admin() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        tenantid = getArguments().getString("tenantid");
-        return inflater.inflate(R.layout.fragment_chat_renter, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_chat_admin, container, false);
     }
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        button = getActivity().findViewById(R.id.sender_renter);
-        editText = getActivity().findViewById(R.id.senderText_renter);
+        button = getActivity().findViewById(R.id.sender_admin);
+        editText = getActivity().findViewById(R.id.senderText_admin);
         mauth = FirebaseAuth.getInstance();
         FirebaseUser renter = mauth.getCurrentUser();
         mail=renter.getEmail().toString();
         db=FirebaseFirestore.getInstance();
-        listView=getActivity().findViewById(R.id.renter_chats);
+        listView=getActivity().findViewById(R.id.admin_chats);
         func();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,18 +71,18 @@ public class chatFragment_renter extends Fragment {
                 userdata.put("msg", msg);
                 userdata.put("time",System.currentTimeMillis());
 
-                String id = db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages").document().getId();
-                db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages").document(id)
-                    .set(userdata).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(getContext(), "Message Sent!", Toast.LENGTH_SHORT).show();
+                String id = db.collection("adminchat").document(mail).collection("messages").document().getId();
+                db.collection("adminchat").document(mail).collection("messages").document(id)
+                        .set(userdata).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getContext(), "Message Sent!", Toast.LENGTH_SHORT).show();
                     }
                 })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                     Toast.makeText(getContext(), "Message sending Failed", Toast.LENGTH_SHORT).show();
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), "Message sending Failed", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -92,7 +90,7 @@ public class chatFragment_renter extends Fragment {
     }
     public void func(){
         final ArrayList<HashMap<String, String>> list = new ArrayList<>();
-        db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages")
+        db.collection("adminchat").document(mail).collection("messages")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -118,5 +116,5 @@ public class chatFragment_renter extends Fragment {
                 });
     }
 
-    
+
 }

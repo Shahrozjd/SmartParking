@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.example.smartparking.R;
 import com.example.smartparking.renter.fragments.chatFragment_renter;
+import com.example.smartparking.renter.fragments.chatoption;
 import com.example.smartparking.renter.fragments.home_renter;
 import com.example.smartparking.renter.fragments.other_renter;
 import com.example.smartparking.renter.fragments.profile_renter;
@@ -45,7 +46,7 @@ public class RenterMain extends AppCompatActivity {
                                 fragment = new profile_renter();
                                 break;
                             case R.id.nav_other_renter:
-                                fragment = new other_renter();
+                                fragment = new chatoption();
                                 break;
                         }
                         return loadFragment(fragment);
