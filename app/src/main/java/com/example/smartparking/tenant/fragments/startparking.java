@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,7 +68,11 @@ public class startparking extends Fragment {
         availability = values[1];
         parkid = values[2];
 
-        Toast.makeText(getContext(),"******" + availability, Toast.LENGTH_SHORT).show();
+        final Date now = Calendar.getInstance().getTime();
+        SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm aa");
+        final String strdate1 = sdfDate.format(now);
+
+
         checkavailabilty();
 
         //STOP BUTTON
@@ -75,16 +80,39 @@ public class startparking extends Fragment {
             @Override
             public void onClick(View view) {
 
-                parkingstatus.setText("Parking time has been stopped");
-                parkingstatus.setTextColor(Color.RED);
-                parkingresult.setText("Your total is 5 A$ \n toal time of parking is 1 hour");
-                parkingresult.setVisibility(View.VISIBLE);
+
 
                 //Calculate hours
-                Date now = Calendar.getInstance().getTime();
-                SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm:ss aa");
-                String strDate = sdfDate.format(now);
-                Toast.makeText(getContext(), strDate, Toast.LENGTH_SHORT).show();
+
+
+
+                Date now2 = Calendar.getInstance().getTime();
+                SimpleDateFormat sdfDate2 = new SimpleDateFormat("hh:mm aa");
+                String strdate2 = sdfDate2.format(now2);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+                Date date1 = null;
+                Date date2 = null;
+                try {
+                    date1 = simpleDateFormat.parse(strdate1);
+                    date2 = simpleDateFormat.parse(strdate2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                long difference = date2.getTime() - date1.getTime();
+                int days = (int) (difference / (1000*60*60*24));
+                int hours = (int) ((difference - (1000*60*60*24*days)) / (1000*60*60));
+                int min = (int) (difference - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+                hours = (hours < 0 ? -hours : hours);
+                Log.i("======= Hours"," :: "+hours);
+
+                parkingstatus.setText("Parking time has been stopped");
+                parkingstatus.setTextColor(Color.RED);
+                parkingresult.setText("Parking is 5 A$/hr \n Toal time : "+
+                        String.valueOf(min)+"Min and "+ String.valueOf(hours)+"Hours");
+                parkingresult.setVisibility(View.VISIBLE);
 
                 checktrue();
 
