@@ -31,6 +31,7 @@ public class LoginActivity_tenant extends AppCompatActivity {
 
 
     private FirebaseAuth mauth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,6 @@ public class LoginActivity_tenant extends AppCompatActivity {
         String password = passwordedittxt.getText().toString().trim();
 
         mauth = FirebaseAuth.getInstance();
-
         mauth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
