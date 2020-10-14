@@ -92,7 +92,7 @@ public class chatFragment_renter extends Fragment {
     }
     public void func(){
         final ArrayList<HashMap<String, String>> list = new ArrayList<>();
-        db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages")
+        db.collection("chats").document("chat_"+mail+"_"+tenantid).collection("messages").orderBy("time")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
