@@ -201,11 +201,7 @@ public class home_tenant extends Fragment {
 
                                 double renterLat = Double.parseDouble(document.getData().get("Latitude").toString());
                                 double renterLon = Double.parseDouble(document.getData().get("Longitude").toString());
-                                if ((tenantLat == renterLat) && (tenantLon == renterLon)) {
 
-                                }
-                                else
-                                {
                                     double theta = tenantLon - renterLon;
                                     double dist = Math.sin(Math.toRadians(tenantLat)) * Math.sin(Math.toRadians(renterLat))
                                             + Math.cos(Math.toRadians(tenantLat)) * Math.cos(Math.toRadians(renterLat))
@@ -235,7 +231,7 @@ public class home_tenant extends Fragment {
                                     item.put("available",availability);
                                     list.add(item);
 
-                                }
+
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -244,7 +240,7 @@ public class home_tenant extends Fragment {
                         int size = list.size();
                         for(int i=0;i<size;i++)
                         {
-                            double distanceThreshold = 500.0;
+                            double distanceThreshold = 20.0;
                             if (Double.parseDouble(list.get(i).get("parkingDistance")) <= distanceThreshold) {
 
                                 finallist.add(list.get(i));
