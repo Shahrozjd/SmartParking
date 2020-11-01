@@ -97,7 +97,7 @@ public class home_tenant extends Fragment {
                 if (ActivityCompat.checkSelfPermission(getContext()
                         , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     //when permission granted
-                    loading = ProgressDialog.show(getContext(), "Fetching Profile", "Please wait ...");
+                    loading = ProgressDialog.show(getContext(), "Finding Nearby Parkings", "Please wait ...");
                     loading.setCancelable(false);
                     getlocation();
                 } else {

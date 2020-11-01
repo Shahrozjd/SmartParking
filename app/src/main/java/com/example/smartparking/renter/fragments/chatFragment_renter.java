@@ -78,7 +78,9 @@ public class chatFragment_renter extends Fragment {
                     .set(userdata).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    editText.setText("");
                     Toast.makeText(getContext(), "Message Sent!", Toast.LENGTH_SHORT).show();
+                    func();
                     }
                 })
                     .addOnFailureListener(new OnFailureListener() {

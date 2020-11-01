@@ -62,7 +62,7 @@ public class profile_tenant extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final ProgressDialog loading = ProgressDialog.show(getContext(), "Signing In", "Please wait ...");
+        final ProgressDialog loading = ProgressDialog.show(getContext(), "Fetching profile", "Please wait ...");
         loading.setCancelable(false);
 
         //bindings

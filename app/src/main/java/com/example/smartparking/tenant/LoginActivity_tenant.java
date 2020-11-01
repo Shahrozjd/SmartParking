@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartparking.R;
+import com.example.smartparking.WelcomeScreen;
 import com.example.smartparking.renter.LoginActivity_renter;
 import com.example.smartparking.renter.RenterMain;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,8 +30,27 @@ public class LoginActivity_tenant extends AppCompatActivity {
     Button singin;
     TextView signupscreen;
 
-
     private FirebaseAuth mauth;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mauth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mauth.getCurrentUser();
+        if(currentUser == null)
+        {
+            Log.d("TAGU","No User");
+        }
+        else
+        {
+            Log.d("TAGU",currentUser.getEmail().toString());
+
+            Intent i = new Intent(LoginActivity_tenant.this, TenantMain.class);
+            startActivity(i);
+            Toast.makeText(this, "WELCOME BACK!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

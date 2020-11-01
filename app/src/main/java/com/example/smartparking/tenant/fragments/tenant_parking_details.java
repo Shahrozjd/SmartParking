@@ -1,11 +1,15 @@
 package com.example.smartparking.tenant.fragments;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -128,13 +132,23 @@ public class tenant_parking_details extends Fragment implements OnMapReadyCallba
             @Override
             public void onClick(View view) {
 
-                IntentIntegrator integrator = IntentIntegrator.forSupportFragment(tenant_parking_details.this);
-                integrator.setPrompt("Scan a QR");
-                integrator.setCameraId(0);  // Use a specific camera of the device
-                integrator.setOrientationLocked(true);
-                integrator.setBeepEnabled(true);
-                integrator.setCaptureActivity(CaptureActivityPortrait.class);
-                integrator.initiateScan();
+
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                        == PackageManager.PERMISSION_DENIED)
+                {
+                    ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 198);
+                }
+                else
+                {
+                    IntentIntegrator integrator = IntentIntegrator.forSupportFragment(tenant_parking_details.this);
+                    integrator.setPrompt("Scan a QR");
+                    integrator.setCameraId(0);  // Use a specific camera of the device
+                    integrator.setOrientationLocked(true);
+                    integrator.setBeepEnabled(true);
+                    integrator.setCaptureActivity(CaptureActivityPortrait.class);
+                    integrator.initiateScan();
+                }
+
 
             }
         });

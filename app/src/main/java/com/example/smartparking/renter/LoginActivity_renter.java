@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -30,6 +31,27 @@ public class LoginActivity_renter extends AppCompatActivity {
     Button signin_btn;
     private FirebaseAuth mauth;
     TextView signupscreen;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mauth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mauth.getCurrentUser();
+        if(currentUser == null)
+        {
+            Log.d("TAGU","No User");
+        }
+        else
+        {
+            Log.d("TAGU",currentUser.getEmail().toString());
+
+            Intent i = new Intent(LoginActivity_renter.this, RenterMain.class);
+            startActivity(i);
+            Toast.makeText(this, "WELCOME BACK!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

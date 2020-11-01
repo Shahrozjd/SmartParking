@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.example.smartparking.R;
 import com.example.smartparking.tenant.fragments.home_tenant;
 import com.example.smartparking.tenant.fragments.other_tenant;
@@ -19,8 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class TenantMain extends AppCompatActivity {
 
+
     private FirebaseAuth mAuth;
     BottomNavigationView bottomNavigationView;
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,4 +76,43 @@ public class TenantMain extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+
+
+            if (doubleBackToExitPressedOnce) {
+
+                super.onBackPressed();
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(a);
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+        }
+        else {
+
+            getSupportFragmentManager().popBackStack();
+
+
+        }
+    }
+
+
 }

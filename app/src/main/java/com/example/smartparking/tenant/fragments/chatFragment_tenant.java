@@ -71,7 +71,6 @@ public class chatFragment_tenant  extends Fragment {
             @Override
             public void onClick(View view) {
                 String msg = editText.getText().toString().trim();
-
                 Map<String, Object> userdata = new HashMap<>();
                 userdata.put("sender", mail);
                 userdata.put("msg", msg);
@@ -82,7 +81,10 @@ public class chatFragment_tenant  extends Fragment {
                     .set(userdata).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    editText.setText("");
                     Toast.makeText(getContext(), "Message Sent!", Toast.LENGTH_SHORT).show();
+                    func();
+
                     }
                 })
                     .addOnFailureListener(new OnFailureListener() {
